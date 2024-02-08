@@ -1,0 +1,12 @@
+{
+    "name": "egidijus/phppiggy",
+    "description": "A PHP application based on PHP course",
+    "type": "project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework",
+            "App\\": "src/App"
+        }
+    }
+}
