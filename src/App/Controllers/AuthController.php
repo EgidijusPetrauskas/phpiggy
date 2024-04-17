@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\ValidatorService;
+use App\Services\{UserService, ValidatorService};
 use Framework\TemplateEngine;
 
 class AuthController
 {
-  public function __construct(private TemplateEngine $view, private ValidatorService $validatorService)
+  public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private UserService $userService)
   {
   }
 
@@ -20,8 +20,20 @@ class AuthController
     ]);
   }
 
+  public function loginView()
+  {
+    echo $this->view->render('login.php', [
+      'title' => 'Register'
+    ]);
+  }
+
+
+
   public function register()
   {
     $this->validatorService->validateRegister($_POST);
+    $this->userService->isEmailTaken($_POST['email']);
+    $this->userService->create($_POST);
+    redirectTo('/');
   }
 }
