@@ -86,7 +86,7 @@
       </div>
     </div>
     <button type="submit" class="block w-full py-2 bg-indigo-600 text-white rounded">
-      Submit
+      Register
     </button>
   </form>
 </section>
