@@ -44,6 +44,15 @@ class TransactionService
       $params
     )->findAll();
 
+    $transactions = array_map(function ($transaction) {
+      $transaction['receipts'] = $this->db->query(
+        "SELECT * FROM receipts WHERE transaction_id = :transaction_id",
+        ["transaction_id" => $transaction['id']]
+      )->findAll();
+
+      return $transaction;
+    }, $transactions);
+
     $transactionCount = $this->db->query(
       "SELECT COUNT(*)
       FROM transactions 
@@ -64,6 +73,14 @@ class TransactionService
         'id' => $id,
         'user_id' => $_SESSION['user']
       ]
+    )->find();
+  }
+
+  public function getReceipt(string $id)
+  {
+    return $this->db->query(
+      "SELECT * FROM receipts WHERE id = :id",
+      ['id' => $id]
     )->find();
   }
 
